@@ -2,3 +2,4 @@
 
 echo "Backup Started"
 date
+echo "finished"
