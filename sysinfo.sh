@@ -6,7 +6,7 @@ echo "===================================================="
 echo "Hostname: $(hostname)"
 echo "User: $(whoami)"
 echo "Date: $(date)"
-echo""
+echo ""
 
 echo "OS:"
 cat /etc/os-release | grep PRETTY_NAME
@@ -16,23 +16,24 @@ echo ""
 echo "kernal:"
 uname -r
 
-echo "CPU"
-lscpu | grep "Model name" | cut -d ':' -f2
+echo ""
+echo "CPU:"
+ lscpu | grep "Model name" | cut -d ':' -f2
 
-echo""
+echo ""
 
 echo "Memory"
 free -h
 
-echo""
+echo ""
 
 echo "Disk:"
 df -h /
 
-echo""
+echo ""
 
-echo"Uptime:"
+echo "Uptime:"
 uptime -p
 
-echo""
+echo "===================================================="
 
