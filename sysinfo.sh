@@ -17,7 +17,7 @@ echo "kernal:"
 uname -r
 
 echo "CPU"
-lscpu | grep "Mode Name" | cut -d ':' -f2
+lscpu | grep "Model name" | cut -d ':' -f2
 
 echo""
 
