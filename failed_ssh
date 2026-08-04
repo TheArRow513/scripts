@@ -1,0 +1,14 @@
+#!/bin/bash
+#for SSH Failed login attempts and the attempter's source IP
+
+LOGFILE="/var/log/auth.log"
+
+if [ ! -f "$LOGFILE" ]; then
+	echo "Log file not found:	$LOGFILE"
+	exit 1
+fi
+
+echo "Top offending IPs (failed ssh logins):"
+echo "------------------------------------------"
+grep "Failed password" "$LOGFILE" | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr | head -10
+
