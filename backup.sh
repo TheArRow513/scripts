@@ -17,29 +17,33 @@ set -euo pipefail
 # ==========================
 RESTIC_REPOSITORY="sftp:<username>@<server-ip>:/path/to/backup/place"
 RESTIC_PASSWORD_FILE="/path/to/password/file"
-SOURCE_DIR="/path/to/source/directory"
-LOGFILE="/path/to/log/file"
 
+SOURCE_DIRS=(
+    "/path/to/source/directory1"
+    "/path/to/source/directory2"
+    "/path/to/source/directory3"
+)
+
+LOGFILE="/path/to/log/file"
 
 export RESTIC_REPOSITORY
 export RESTIC_PASSWORD_FILE
 
-if [ ! -d "$SOURCE_DIR" ]; then
-	echo "Error : Source Directory not found: $SOURCE_DIR"
-	exit 1
-fi
+for dir in "${SOURCE_DIRS[@]}"; do
+    if [ ! -d "$dir" ]; then
+        echo "Error: Source directory not found: $dir"
+        exit 1
+    fi
+done
 
 echo "====================================================" >> "$LOGFILE"
 echo "====== Backup Started: $(date) ======" >> "$LOGFILE"
 echo "====================================================" >> "$LOGFILE"
 
-
-
-restic backup "$SOURCE_DIR" \
+restic backup "${SOURCE_DIRS[@]}" \
     --exclude-caches \
     --tag incremental \
     >> "$LOGFILE" 2>&1
-
 
 restic forget \
     --keep-daily 7 \
@@ -48,8 +52,6 @@ restic forget \
     --prune \
     >> "$LOGFILE" 2>&1
 
-
 echo "====================================================" >> "$LOGFILE"
 echo "====== Backup Finished: $(date) ======" >> "$LOGFILE"
 echo "====================================================" >> "$LOGFILE"
-
