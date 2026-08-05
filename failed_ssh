@@ -10,5 +10,7 @@ fi
 
 echo "Top offending IPs (failed ssh logins):"
 echo "------------------------------------------"
-grep "Failed password" "$LOGFILE" | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr | head -10
+grep "Failed password" $LOGFILE \
+| sed -E 's/.*Failed password for (invalid user )?(\S+) from (\S+) port (\S+).*/\1\2 from \3 port \4/' \
+| sort | uniq -c | sort -nr | head -10
 
