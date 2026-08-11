@@ -1,5 +1,5 @@
 import socket
-f=open("LOCATION OF THE FILE","THE FUNCTION")
+f=open("THE LOCATION","THE FUNCTION")
 target = "scanme.nmap.org"
 ports= [21,22,80,443,8080]
 OPorts=[]
